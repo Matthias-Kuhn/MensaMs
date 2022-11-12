@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="80dp"
+    android:minHeight="50dp"
+    android:updatePeriodMillis="1800000"
+    android:previewImage="@drawable/ic_launcher_background"
+    android:description="@string/app_name"
+    android:initialLayout="@layout/simple_balance_widget"
+    android:resizeMode="horizontal|vertical">
+</appwidget-provider>

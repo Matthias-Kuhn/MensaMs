@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:id="@+id/bg">
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guthaben"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/tv_balance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fehler"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        tools:text="2.54€" />
+
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        tools:text="10.12 19:00" />
+
+</LinearLayout>
