@@ -23,6 +23,7 @@
         android:text="Fehler"
         android:textAlignment="center"
         android:textSize="34sp"
+        android:font="@font/mont"
         tools:text="2.54€" />
 
 
