@@ -2,4 +2,15 @@
     <string name="app_name">MensaMs</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="about_msg">Hey!
+        \nBitte beachte, dass dies eine INOFFIZIELLE App ist.
+        \n\nEs besteht kein Zusammenhang und keine Kooperation mit dem Studierendenwerk Münster.
+        \n\nEs werden keine Daten außerhalb deines Handys gespeichert.
+        \n\nFür Feedback und Ideen schreib mir doch einfach bei Instagram oder GitHub :)
+        \n\nMatthias
+    </string>
+    <string name="about_btn">Über</string>
+    <string name="home_btn">Home</string>
+    <string name="options_btn">Optionen</string>
+
 </resources>
