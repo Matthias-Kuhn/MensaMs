@@ -12,5 +12,6 @@
     <string name="about_btn">Über</string>
     <string name="home_btn">Home</string>
     <string name="options_btn">Optionen</string>
+    <string name="privacy_policy" translatable="false">privacy policy</string>
 
 </resources>
