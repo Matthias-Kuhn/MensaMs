@@ -1,4 +1,4 @@
-package de.emka.mensams
+package de.emka.mensams.views
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -12,6 +12,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import de.emka.mensams.R
+import de.emka.mensams.viewmodels.SharedViewModel
 
 
 class AboutFragment : Fragment() {

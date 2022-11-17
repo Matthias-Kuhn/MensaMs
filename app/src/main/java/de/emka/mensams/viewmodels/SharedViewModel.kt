@@ -1,8 +1,10 @@
-package de.emka.mensams
+package de.emka.mensams.viewmodels
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-
+import de.emka.mensams.views.AboutFragment
+import de.emka.mensams.views.HomeFragment
+import de.emka.mensams.views.OptionsFragment
 
 
 class SharedViewModel : ViewModel() {

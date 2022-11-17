@@ -1,10 +1,12 @@
-package de.emka.mensams
+package de.emka.mensams.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import de.emka.mensams.R
+import de.emka.mensams.viewmodels.SharedViewModel
 import de.emka.mensams.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
