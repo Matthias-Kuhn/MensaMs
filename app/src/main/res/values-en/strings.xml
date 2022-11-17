@@ -12,4 +12,7 @@
     <string name="about_btn">About</string>
     <string name="home_btn">Home</string>
     <string name="options_btn">Options</string>
+    <string name="card_nr_position">The card number is at the bottom right</string>
+    <string name="card_nr">Card number:</string>
+    <string name="current_balance">Your current balance is:</string>
 </resources>

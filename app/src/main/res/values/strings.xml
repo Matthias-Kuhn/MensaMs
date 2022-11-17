@@ -13,5 +13,8 @@
     <string name="home_btn">Home</string>
     <string name="options_btn">Optionen</string>
     <string name="privacy_policy" translatable="false">privacy policy</string>
+    <string name="card_nr_position">Die Kartennummer steht unten rechts</string>
+    <string name="card_nr">Kartennummer:</string>
+    <string name="current_balance">Dein aktuelles Guthaben beträgt:</string>
 
 </resources>
