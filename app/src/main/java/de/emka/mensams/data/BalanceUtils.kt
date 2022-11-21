@@ -12,6 +12,8 @@ import java.math.BigDecimal
 object BalanceUtils {
     val BASE_URL = "https://api.topup.klarna.com/api/v1/STW_MUNSTER/cards/"
 
+
+
     fun getBalanceResponse(url: String): Call<BalanceResponse> {
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -38,7 +40,7 @@ object BalanceUtils {
 //    }
 
     @Throws(IOException::class)
-    fun getBalanceAndExecute(cardNr: String, toExecute: (input: Int) -> Unit) {
+    fun getBalanceAndExecute(cardNr: String, toExecute: (input: Int, responseType: ResponseType) -> Unit) {
         val url = "$BASE_URL$cardNr/"
         val retrofitData = BalanceUtils.getBalanceResponse(url)
 
@@ -52,14 +54,14 @@ object BalanceUtils {
 
                 if (responseBody != null) {
                     val balance = responseBody.balance
-                    toExecute(balance)
+                    toExecute(balance, ResponseType.SUCCESSFUL_RESPONSE)
                 } else {
-                    toExecute(-1)
+                    toExecute(0, ResponseType.EMPTY_RESPONSE_BODY)
                 }
             }
 
             override fun onFailure(call: Call<BalanceResponse?>, t: Throwable) {
-                toExecute(-100)
+                toExecute(0, ResponseType.FAILED_TO_CONNECT)
             }
         })
 

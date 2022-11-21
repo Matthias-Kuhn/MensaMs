@@ -14,6 +14,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import de.emka.mensams.R
 import de.emka.mensams.data.BalanceUtils
+import de.emka.mensams.data.ResponseType
 
 
 class HomeFragment : Fragment() {
@@ -48,12 +49,14 @@ class HomeFragment : Fragment() {
         return view
     }
 
-    fun showResult(input : Int) {
-        if (input < 0) {
-            balanceTextView.text = "Fehler"
-            return
+    fun showResult(input : Int, responseType: ResponseType) {
+
+        when (responseType) {
+            ResponseType.SUCCESSFUL_RESPONSE -> balanceTextView.text = BalanceUtils.intToString(input)
+            ResponseType.EMPTY_RESPONSE_BODY -> balanceTextView.text = "Kartennummer richtig?"
+            ResponseType.FAILED_TO_CONNECT -> balanceTextView.text = "Internet?"
         }
-        balanceTextView.text = BalanceUtils.intToString(input)
+
     }
 
 
