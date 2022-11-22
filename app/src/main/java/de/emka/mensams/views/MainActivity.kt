@@ -5,19 +5,25 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import de.emka.mensams.R
+import de.emka.mensams.data.UpdateWorker
 import de.emka.mensams.viewmodels.SharedViewModel
 import de.emka.mensams.databinding.ActivityMainBinding
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
+    private val TAG = "MainActivity"
     private lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        initWorkManager()
         val viewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
 
         replaceFragment(viewModel.getFragment())
@@ -44,5 +50,13 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_layout, fragment)
         fragmentTransaction.commit()
+    }
+
+    private fun initWorkManager() {
+        val request = PeriodicWorkRequestBuilder<UpdateWorker>(15, TimeUnit.MINUTES)
+            .addTag(TAG)
+            .build()
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            TAG, ExistingPeriodicWorkPolicy.KEEP, request)
     }
 }
