@@ -4,10 +4,11 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.widget.RemoteViews
+import de.emka.mensams.data.BalanceUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BalanceWidgetProvider  : AppWidgetProvider() {
+class BalanceWidgetProvider : AppWidgetProvider() {
 
     override fun onUpdate(
         context: Context,
@@ -18,8 +19,10 @@ class BalanceWidgetProvider  : AppWidgetProvider() {
         // provider.
         appWidgetIds.forEach { appWidgetId ->
 
-            val balance = 1234
-            val sdf = SimpleDateFormat("dd.MM   HH:mm:ss")
+            val sharedPreferences = context.getSharedPreferences("BALANCE_DATA", Context.MODE_PRIVATE)
+
+            val balance = sharedPreferences.getInt("BALANCE", 0)
+            val sdf = SimpleDateFormat("dd.MM   HH:mm")
             val currentDate = sdf.format(Date())
 
             // update textViews on every widget
@@ -28,7 +31,7 @@ class BalanceWidgetProvider  : AppWidgetProvider() {
                     context.packageName,
                     R.layout.simple_balance_widget
                 ).apply {
-                    setTextViewText(R.id.tv_balance, balance.toString())
+                    setTextViewText(R.id.tv_balance,BalanceUtils.intToString(balance))
                     setTextViewText(R.id.tv_date, currentDate)
                 }
                 appWidgetManager.updateAppWidget(appWidgetId, textViews)

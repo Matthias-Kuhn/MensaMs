@@ -1,5 +1,8 @@
 package de.emka.mensams.views
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,6 +16,7 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
+import de.emka.mensams.BalanceWidgetProvider
 import de.emka.mensams.R
 import de.emka.mensams.data.BalanceUtils
 import de.emka.mensams.data.ResponseType
@@ -65,11 +69,18 @@ class HomeFragment : Fragment() {
     fun showResult(input : Int, responseType: ResponseType) {
 
         when (responseType) {
-            ResponseType.SUCCESSFUL_RESPONSE -> viewModel.balanceString = BalanceUtils.intToString(input)
+            ResponseType.SUCCESSFUL_RESPONSE -> viewModel.setAndStoreBalance(input)
             ResponseType.EMPTY_RESPONSE_BODY -> viewModel.balanceString = "Kartennummer richtig?"
             ResponseType.FAILED_TO_CONNECT -> viewModel.balanceString = "Internet?"
         }
         balanceTextView.text = viewModel.balanceString
+
+        val intent = Intent(context, BalanceWidgetProvider::class.java)
+        intent.action = "android.appwidget.action.APPWIDGET_UPDATE"
+        val ids = AppWidgetManager.getInstance(context).getAppWidgetIds(ComponentName(requireContext(), BalanceWidgetProvider::class.java))
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids)
+        requireContext().sendBroadcast(intent)
+
     }
 
 

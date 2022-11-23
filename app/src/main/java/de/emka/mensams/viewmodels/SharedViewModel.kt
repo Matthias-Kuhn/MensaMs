@@ -2,6 +2,7 @@ package de.emka.mensams.viewmodels
 
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
@@ -22,6 +23,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     var currentFragment = Fragments.HOME
     var balanceString = "-"
+    var balance = 0
     var cardNr: String = sharedPreferences.getString("CARD_NR", "").toString()
 
 
@@ -36,8 +38,13 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         storeCardNr(cardNr)
     }
 
-
-
+    fun setAndStoreBalance(balance: Int) {
+        this.balance = balance
+        this.balanceString = BalanceUtils.intToString(balance)
+        val editor = sharedPreferences.edit()
+        editor.putInt("BALANCE", balance)
+        editor.apply()
+    }
 
     enum class Fragments {
         HOME, OPTIONS, ABOUT
