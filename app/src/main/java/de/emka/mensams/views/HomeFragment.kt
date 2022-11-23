@@ -12,14 +12,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.ViewModelProvider
 import de.emka.mensams.R
 import de.emka.mensams.data.BalanceUtils
 import de.emka.mensams.data.ResponseType
+import de.emka.mensams.viewmodels.SharedViewModel
 
 
 class HomeFragment : Fragment() {
 
-    lateinit var balanceTextView: TextView;
+    lateinit var balanceTextView: TextView
+    lateinit var viewModel: SharedViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,6 +33,14 @@ class HomeFragment : Fragment() {
         val inputField = view.findViewById<EditText>(R.id.card_nr_input)
         balanceTextView = view.findViewById<TextView>(R.id.tv_balance_view)
 
+        viewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        balanceTextView.text = viewModel.balanceString
+        inputField.setText(viewModel.cardNr)
+
+        if (viewModel.balanceString == "-" && viewModel.cardNr.length == 7) {
+            BalanceUtils.getBalanceAndExecute(inputField.text.toString(), ::showResult)
+        }
+
         inputField.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
@@ -36,6 +48,7 @@ class HomeFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
+                viewModel.cardNr = s.toString()
                 if (s != null && s.length == 7) {
                     balanceTextView.text = "..."
                     BalanceUtils.getBalanceAndExecute(s.toString(), ::showResult)
@@ -52,11 +65,11 @@ class HomeFragment : Fragment() {
     fun showResult(input : Int, responseType: ResponseType) {
 
         when (responseType) {
-            ResponseType.SUCCESSFUL_RESPONSE -> balanceTextView.text = BalanceUtils.intToString(input)
-            ResponseType.EMPTY_RESPONSE_BODY -> balanceTextView.text = "Kartennummer richtig?"
-            ResponseType.FAILED_TO_CONNECT -> balanceTextView.text = "Internet?"
+            ResponseType.SUCCESSFUL_RESPONSE -> viewModel.balanceString = BalanceUtils.intToString(input)
+            ResponseType.EMPTY_RESPONSE_BODY -> viewModel.balanceString = "Kartennummer richtig?"
+            ResponseType.FAILED_TO_CONNECT -> viewModel.balanceString = "Internet?"
         }
-
+        balanceTextView.text = viewModel.balanceString
     }
 
 

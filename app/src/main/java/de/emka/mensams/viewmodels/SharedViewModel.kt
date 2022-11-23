@@ -15,18 +15,9 @@ import java.io.IOException
 
 class SharedViewModel : ViewModel() {
 
-    private val homeFragment = HomeFragment()
-    private val aboutFragment = AboutFragment()
-    private val optionsFragment = OptionsFragment()
-
     var currentFragment = Fragments.HOME
-
-    fun getFragment() : Fragment = when (currentFragment) {
-        Fragments.HOME -> homeFragment
-        Fragments.OPTIONS -> optionsFragment
-        Fragments.ABOUT -> aboutFragment
-    }
-
+    var balanceString = "-"
+    var cardNr = ""
 
 
     enum class Fragments {

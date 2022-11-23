@@ -12,6 +12,9 @@ import de.emka.mensams.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
+    private val homeFragment = HomeFragment()
+    private val aboutFragment = AboutFragment()
+    private val optionsFragment = OptionsFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         val viewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
 
-        replaceFragment(viewModel.getFragment())
+        replaceFragment(viewModel.currentFragment)
         binding.bottomNavigationView.selectedItemId = R.id.home
 
 
@@ -34,15 +37,21 @@ class MainActivity : AppCompatActivity() {
                 else -> {}
 
             }
-            replaceFragment(viewModel.getFragment())
+            replaceFragment(viewModel.currentFragment)
             true
         }
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    private fun replaceFragment(fragment: SharedViewModel.Fragments) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_layout, fragment)
+        fragmentTransaction.replace(R.id.frame_layout, getFragment(fragment))
         fragmentTransaction.commit()
+    }
+
+    fun getFragment(currentFragment: SharedViewModel.Fragments) : Fragment = when (currentFragment) {
+        SharedViewModel.Fragments.HOME -> homeFragment
+        SharedViewModel.Fragments.OPTIONS -> optionsFragment
+        SharedViewModel.Fragments.ABOUT -> aboutFragment
     }
 }
