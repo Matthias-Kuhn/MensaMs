@@ -1,17 +1,24 @@
 package de.emka.mensams.views
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import de.emka.mensams.R
+import de.emka.mensams.data.BalanceUtils
 import de.emka.mensams.data.UpdateWorker
 import de.emka.mensams.viewmodels.SharedViewModel
 import de.emka.mensams.databinding.ActivityMainBinding
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
@@ -25,10 +32,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
         initWorkManager()
         val viewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
-
+        showNotification(123)
         replaceFragment(viewModel.currentFragment)
         binding.bottomNavigationView.selectedItemId = R.id.home
 
@@ -67,6 +75,46 @@ class MainActivity : AppCompatActivity() {
             .build()
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
             TAG, ExistingPeriodicWorkPolicy.KEEP, request)
+    }
+
+    fun showNotification(diff:Int) {
+        createNotificationChannel()
+
+        val notificationId = SimpleDateFormat("ddHHmmss", Locale.GERMANY).format(Date()).toInt()
+
+        val notificationManager =
+            applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
+        val notificationTitle = "Zahlung mit der MensaCard"
+        val contentText = "Du hast ${BalanceUtils.intToString(diff)} bezahlt."
+        //val subtitleNotification = applicationContext.getString(R.string.notification_subtitle)
+
+
+        val notificationBuilder = NotificationCompat.Builder(applicationContext,
+            UpdateWorker.NOTIFICATION_CHANNEL
+        )
+
+        notificationBuilder
+            .setContentTitle(notificationTitle)
+            .setContentText(contentText)
+            .setSmallIcon(R.drawable.ic_notification)
+        notificationBuilder.priority = NotificationCompat.PRIORITY_DEFAULT
+
+
+        notificationManager.notify(notificationId, notificationBuilder.build())
+
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val notificationChannel = NotificationChannel(UpdateWorker.NOTIFICATION_CHANNEL, UpdateWorker.NOTIFICATION_NAME, importance)
+            notificationChannel.description = "test Beschreibung"
+            val notificationManager =
+                applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
     }
 
 }
