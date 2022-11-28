@@ -15,4 +15,8 @@
     <string name="card_nr_position">The card number is at the bottom right</string>
     <string name="card_nr">Card number:</string>
     <string name="current_balance">Your current balance is:</string>
+    <string name="notification_channel_description">Notifications of changes in the balance</string>
+    <string name="notification_title">Changes to your balance</string>
+    <string name="notification_body">Your balance has changed by %1$s to %2$s.</string>
+    <string name="balance_changes_channel_name">Balance changes</string>
 </resources>

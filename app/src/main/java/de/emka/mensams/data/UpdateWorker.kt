@@ -39,66 +39,7 @@ class UpdateWorker(appContext: Context, workerParams: WorkerParameters):
     }
 
     fun storeAndUpdateViews(balance: Int, responseType: ResponseType){
-        if (responseType == ResponseType.SUCCESSFUL_RESPONSE){
-            val prefs = applicationContext.getSharedPreferences("BALANCE_DATA", Context.MODE_PRIVATE)
-            val oldBalance = prefs.getInt("BALANCE", 0)
-            val editor = prefs.edit()
-            editor.putInt("BALANCE", balance)
-            editor.commit()
-            updateWidgets()
-            if (oldBalance != balance) showNotification(oldBalance-balance)
-        }
-    }
-    fun updateWidgets() {
-        val intent = Intent(applicationContext, BalanceWidgetProvider::class.java)
-        intent.action = "android.appwidget.action.APPWIDGET_UPDATE"
-        val ids = AppWidgetManager.getInstance(applicationContext).getAppWidgetIds(ComponentName(applicationContext, BalanceWidgetProvider::class.java))
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids)
-        applicationContext.sendBroadcast(intent)
+        StoringAndNotifyingUtils.storeAndUpdateViews(applicationContext, balance, responseType)
     }
 
-    fun showNotification(diff:Int) {
-        createNotificationChannel()
-
-        val notificationId = SimpleDateFormat("ddHHmmss", Locale.GERMANY).format(Date()).toInt()
-
-        val notificationManager =
-            applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-
-        val notificationTitle = "Zahlung mit der MensaCard"
-        val contentText = "Du hast ${BalanceUtils.intToString(diff)} bezahlt."
-        //val subtitleNotification = applicationContext.getString(R.string.notification_subtitle)
-
-
-        val notificationBuilder = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL)
-
-        notificationBuilder
-            .setContentTitle(notificationTitle)
-            .setContentText(contentText)
-            .setSmallIcon(R.drawable.ic_notification)
-        notificationBuilder.priority = NotificationCompat.PRIORITY_DEFAULT
-
-
-        notificationManager.notify(notificationId, notificationBuilder.build())
-
-    }
-
-    private fun createNotificationChannel() {
-        if (SDK_INT >= O) {
-
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val notificationChannel = NotificationChannel(NOTIFICATION_CHANNEL, NOTIFICATION_NAME, importance)
-            notificationChannel.description = "test Beschreibung"
-            val notificationManager =
-                applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(notificationChannel)
-        }
-    }
-
-    companion object {
-        const val NOTIFICATION_ID = "appName_notification_id"
-        const val NOTIFICATION_NAME = "appName"
-        const val NOTIFICATION_CHANNEL = "appName_channel_01"
-        const val NOTIFICATION_WORK = "appName_notification_work"
-    }
 }

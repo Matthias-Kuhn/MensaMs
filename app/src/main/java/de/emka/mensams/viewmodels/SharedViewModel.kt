@@ -8,6 +8,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import de.emka.mensams.data.BalanceResponse
 import de.emka.mensams.data.BalanceUtils
+import de.emka.mensams.data.ResponseType
+import de.emka.mensams.data.StoringAndNotifyingUtils
 import de.emka.mensams.views.AboutFragment
 import de.emka.mensams.views.HomeFragment
 import de.emka.mensams.views.OptionsFragment
@@ -38,12 +40,13 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         storeCardNr(cardNr)
     }
 
-    fun setAndStoreBalance(balance: Int) {
+    fun setAndStoreBalance(balance: Int, responseType: ResponseType) {
         this.balance = balance
         this.balanceString = BalanceUtils.intToString(balance)
-        val editor = sharedPreferences.edit()
-        editor.putInt("BALANCE", balance)
-        editor.apply()
+
+        StoringAndNotifyingUtils.storeAndUpdateViews(
+            getApplication<Application>().applicationContext,
+            balance, responseType)
     }
 
     enum class Fragments {

@@ -69,17 +69,18 @@ class HomeFragment : Fragment() {
     fun showResult(input : Int, responseType: ResponseType) {
 
         when (responseType) {
-            ResponseType.SUCCESSFUL_RESPONSE -> viewModel.setAndStoreBalance(input)
+            ResponseType.SUCCESSFUL_RESPONSE -> viewModel.setAndStoreBalance(input, responseType)
             ResponseType.EMPTY_RESPONSE_BODY -> viewModel.balanceString = "Kartennummer richtig?"
             ResponseType.FAILED_TO_CONNECT -> viewModel.balanceString = "Internet?"
         }
         balanceTextView.text = viewModel.balanceString
 
-        val intent = Intent(context, BalanceWidgetProvider::class.java)
-        intent.action = "android.appwidget.action.APPWIDGET_UPDATE"
-        val ids = AppWidgetManager.getInstance(context).getAppWidgetIds(ComponentName(requireContext(), BalanceWidgetProvider::class.java))
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids)
-        requireContext().sendBroadcast(intent)
+//        val intent = Intent(context, BalanceWidgetProvider::class.java)
+//        intent.action = "android.appwidget.action.APPWIDGET_UPDATE"
+//        val ids = AppWidgetManager.getInstance(context).getAppWidgetIds(ComponentName(requireContext(), BalanceWidgetProvider::class.java))
+//        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids)
+//        requireContext().sendBroadcast(intent)
+
 
     }
 

@@ -16,5 +16,9 @@
     <string name="card_nr_position">Die Kartennummer steht unten rechts</string>
     <string name="card_nr">Kartennummer:</string>
     <string name="current_balance">Dein aktuelles Guthaben beträgt:</string>
+    <string name="notification_channel_description">Benachrichtigunen bei Änderungen des Guthabens</string>
+    <string name="notification_title">Änderung deines Guthabens</string>
+    <string name="notification_body">Dein Guhaben hat sich um %1$s auf %2$s verändert.</string>
+    <string name="balance_changes_channel_name">Guthabenänderungen</string>
 
 </resources>
