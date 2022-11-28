@@ -52,8 +52,8 @@ class HomeFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
-                viewModel.setAndStoreCardNr(s.toString())
-                if (s != null && s.length == 7) {
+                if (s != null && s.length == 7 && s.toString() != viewModel.cardNr) {
+                    viewModel.setAndStoreCardNr(s.toString())
                     balanceTextView.text = "..."
                     BalanceUtils.getBalanceAndExecute(s.toString(), ::showResult)
                 }
