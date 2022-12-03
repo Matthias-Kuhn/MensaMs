@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun initWorkManager() {
-        val request = PeriodicWorkRequestBuilder<UpdateWorker>(15, TimeUnit.MINUTES)
+        val request = PeriodicWorkRequestBuilder<UpdateWorker>(25, TimeUnit.MINUTES)
             .addTag(TAG)
             .build()
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
