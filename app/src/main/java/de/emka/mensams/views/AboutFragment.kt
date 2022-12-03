@@ -46,13 +46,21 @@ class AboutFragment : Fragment() {
     }
 
     private fun openPrivacyPolicy() {
-        // TODO: Add link and intent
-        Toast.makeText(activity,"Open privacy policy",Toast.LENGTH_SHORT).show()
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://matthias-kuhn.github.io/PrivacyPolicyMensaMS.html")
+            )
+        )
     }
 
     private fun openGithub() {
-        // TODO: Add link and intent
-        Toast.makeText(activity,"Open GitHub",Toast.LENGTH_SHORT).show()
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://github.com/Matthias-Kuhn/MensaMs/")
+            )
+        )
     }
 
     private fun openInstagram() {
