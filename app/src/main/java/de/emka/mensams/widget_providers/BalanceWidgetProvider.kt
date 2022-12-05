@@ -1,14 +1,18 @@
-package de.emka.mensams
+package de.emka.mensams.widget_providers
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
-import android.widget.RemoteViews
-import de.emka.mensams.data.BalanceUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BalanceWidgetProvider : AppWidgetProvider() {
+abstract class BalanceWidgetProvider : AppWidgetProvider() {
+
+    abstract fun updateWidget(context: Context,
+                              appWidgetManager: AppWidgetManager,
+                              appWidgetIds: IntArray,
+                              balance: Int,
+                              date: String)
 
     override fun onUpdate(
         context: Context,
@@ -26,17 +30,7 @@ class BalanceWidgetProvider : AppWidgetProvider() {
             val currentDate = sdf.format(Date())
 
             // update textViews on every widget
-            appWidgetIds.forEach { appWidgetId ->
-                val textViews: RemoteViews = RemoteViews(
-                    context.packageName,
-                    R.layout.simple_balance_widget
-                ).apply {
-                    setTextViewText(R.id.tv_balance,BalanceUtils.intToString(balance))
-                    setTextViewText(R.id.tv_date, currentDate)
-                }
-                appWidgetManager.updateAppWidget(appWidgetId, textViews)
-            }
-
+            updateWidget(context,appWidgetManager, appWidgetIds, balance, currentDate)
         }
     }
 }

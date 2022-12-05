@@ -26,15 +26,32 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <receiver android:name="BalanceWidgetProvider"
+
+        <receiver android:name=".widget_providers.SimpleWidgetProvider"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/simple_balance_widget_provider_info" />
-
         </receiver>
+        <receiver android:name=".widget_providers.SimpleWidgetGreenProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/simple_balance_widget_green_provider_info" />
+        </receiver>
+        <receiver android:name=".widget_providers.SimpleWidgetBlueProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/simple_balance_widget_blue_provider_info" />
+        </receiver>
+
     </application>
 
 </manifest>

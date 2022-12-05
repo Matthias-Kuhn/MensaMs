@@ -1,8 +1,5 @@
 package de.emka.mensams.views
 
-import android.appwidget.AppWidgetManager
-import android.content.ComponentName
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,11 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
-import de.emka.mensams.BalanceWidgetProvider
 import de.emka.mensams.R
 import de.emka.mensams.data.BalanceUtils
 import de.emka.mensams.data.ResponseType

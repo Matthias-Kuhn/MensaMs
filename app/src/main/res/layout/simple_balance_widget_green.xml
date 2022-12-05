@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:background="@drawable/simple_widget_background_green"
+    android:id="@+id/bg">
+
+
+    <TextView
+        android:id="@+id/wg_tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/mont_heavy"
+        android:text="Guthaben"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/wg_tv_balance"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/mont_heavy"
+        android:text="..."
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        tools:text="2.54€" />
+
+
+    <TextView
+        android:id="@+id/wg_tv_date"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/mont"
+        android:text="-"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        tools:text="10.12 19:00" />
+
+</LinearLayout>

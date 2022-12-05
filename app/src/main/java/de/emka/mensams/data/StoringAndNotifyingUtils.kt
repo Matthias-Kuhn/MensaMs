@@ -8,8 +8,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import de.emka.mensams.BalanceWidgetProvider
+import de.emka.mensams.widget_providers.BalanceWidgetProvider
 import de.emka.mensams.R
+import de.emka.mensams.widget_providers.SimpleWidgetBlueProvider
+import de.emka.mensams.widget_providers.SimpleWidgetGreenProvider
+import de.emka.mensams.widget_providers.SimpleWidgetProvider
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,12 +34,18 @@ object StoringAndNotifyingUtils {
         }
     }
 
-    fun updateWidgets(applicationContext: Context) {
-        val intent = Intent(applicationContext, BalanceWidgetProvider::class.java)
+    fun updateWidgets(context: Context) {
+        updateIntent(context, SimpleWidgetProvider::class.java)
+        updateIntent(context, SimpleWidgetGreenProvider::class.java)
+        updateIntent(context, SimpleWidgetBlueProvider::class.java)
+    }
+
+    private fun updateIntent(context: Context, providerClass: Class<*>){
+        val intent = Intent(context, providerClass)
         intent.action = "android.appwidget.action.APPWIDGET_UPDATE"
-        val ids = AppWidgetManager.getInstance(applicationContext).getAppWidgetIds(ComponentName(applicationContext, BalanceWidgetProvider::class.java))
+        val ids = AppWidgetManager.getInstance(context).getAppWidgetIds(ComponentName(context, providerClass))
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids)
-        applicationContext.sendBroadcast(intent)
+        context.sendBroadcast(intent)
     }
 
     fun showNotification(applicationContext: Context, balance: Int, balanceOld: Int) {
