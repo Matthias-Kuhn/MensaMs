@@ -70,6 +70,7 @@ object StoringAndNotifyingUtils {
             .setContentTitle(notificationTitle)
             .setContentText(contentText)
             .setSmallIcon(R.drawable.ic_notification)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(contentText))
         notificationBuilder.priority = NotificationCompat.PRIORITY_DEFAULT
 
 

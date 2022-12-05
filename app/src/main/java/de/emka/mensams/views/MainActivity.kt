@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initWorkManager()
         val viewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
-
+        //showNotification(123,234)
         replaceFragment(viewModel.currentFragment)
         binding.bottomNavigationView.selectedItemId = R.id.home
 
